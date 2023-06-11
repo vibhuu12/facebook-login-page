@@ -1,0 +1,83 @@
+<html>
+<head>
+  <title>EMI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #emi-form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    #emi-form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    #emi-form input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    #emi-form button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    #emi-result {
+      margin-top: 20px;
+      display: none;
+    }
+
+    #emi-result p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>EMI Calculator</h1>
+  <div id="emi-form">
+    <label for="principal">Principal Amount:</label>
+    <input type="number" id="principal" placeholder="Enter the principal amount">
+
+    <label for="tenure">Tenure (in months):</label>
+    <input type="number" id="tenure" placeholder="Enter the tenure in months">
+
+    <label for="interest">Interest Rate:</label>
+    <input type="number" id="interest" step="0.01" placeholder="Enter the interest rate">
+
+    <button onclick="calculateEMI()">Calculate EMI</button>
+  </div>
+
+  <div id="emi-result">
+    <p>Equated Monthly Installment (EMI): <span id="emi-value"></span></p>
+  </div>
+
+  <script>
+    function calculateEMI() {
+      var principal = parseFloat(document.getElementById("principal").value);
+      var tenure = parseInt(document.getElementById("tenure").value);
+      var interestRate = parseFloat(document.getElementById("interest").value);
+
+      var rate = interestRate / 12 / 100;  // Monthly interest rate
+      var emi = (principal * rate * Math.pow(1 + rate, tenure)) / (Math.pow(1 + rate, tenure) - 1);
+
+      document.getElementById("emi-value").textContent = emi.toFixed(2);
+      document.getElementById("emi-result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
